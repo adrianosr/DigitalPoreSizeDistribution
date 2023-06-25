@@ -1,11 +1,13 @@
 //#include "pch.h"
 #include <string>
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #include <math.h>
+#include <vector>
 using namespace std;
 
-short int* identifica_raio_critico_otm(bool poro, bool matriz, bool* V, short int* V0, int a1, int a2, int b1, int b2, int c1, int c2, short int& rcm, long long int n)
+vector <short int> identificacao_raio_critico(bool poro, bool matriz, vector <bool> V, vector <short int> V0, int a1, int a2, int b1, int b2, int c1, int c2, short int& rcm, long long int n)
 {
 
 	bool mark = 0;
@@ -128,6 +130,7 @@ short int* identifica_raio_critico_otm(bool poro, bool matriz, bool* V, short in
 						l = 0;
 						while (mark > 0)
 						{
+							//cout << aux1 << endl;
 							V0[aux1] = l + 1;
 							if (l + 1 > rcm)
 							{

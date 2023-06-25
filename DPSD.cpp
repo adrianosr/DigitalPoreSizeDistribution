@@ -11,82 +11,77 @@
 
 int main(int argc, char** argv)
 {
-	string nome_arquivo = "Arquivo de Leitura Teste2.txt";
-	//string nome_arquivo = "Arquivo de Leitura SF.txt";
-	//string nome_arquivo = "Arquivo_de_Leitura_14A_25um_TSH2.txt";//argv[1];
-	FILE* arquivo;
+	string nome_arquivo = "Arquivo de Leitura.txt";
+	
 	//============= Parametros Globais ============
-	bool poro = 0;
-	bool matriz = 1;
+	bool poro = 1;
+	bool matriz = 0;
 
 	long long int n;
-
-
-	bool* V;
 
 	clock_t Ticks[7];
 
 	int total, raio, centrox, centroy, cont, mark, l;
 	int cc, cont2, r;
 	double TP, AA, BB, CC, DD, EE, FF;
-	short int* V0, * V1, rcm;
+	short int rcm;
 	int a1, a2, b1, b2, c1, c2, aa, bb, i, j, k;
 	long long int Quantidade_Pixels_Regiao_Interesse;
 	a1 = 0;
 	b1 = 0;
 	c1 = 0;
-	/*a2 = 1723;
-	b2 = 1723;
-	c2 = 838;
-	a2 = 868;
-	b2 = 868;
-	c2 = 0;//2423;
-
-	TP = 25;*/
+	
 	//==================================================
 
-	leitura_configuracao(a2, b2, c2, TP);
+	vector <double> aux;
+	aux = leitura_configuracao();
+	a2 = (int)aux[0];
+	b2 = (int)aux[1];
+	c2 = (int)aux[2];
+	TP = (int)aux[3];
+
+	cout << a2 << endl;
 
 	Ticks[0] = clock();
-	V = (bool*)malloc((1) * sizeof(bool));
-	V = leitura_arquivo(n, V, nome_arquivo);
+	vector <bool> V;
+	V = leitura_arquivo(nome_arquivo);
+	n = V.size();
 	Ticks[1] = clock();
 	double Tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
 	printf("Tempo gasto na leitura do arquivo: %gs.\n", Tempo);
 
 	
-	Filtro(matriz, V, a1, a2, b1, b2, c1, c2, Quantidade_Pixels_Regiao_Interesse);
+	V = Filtro(matriz, V, a1, a2, b1, b2, c1, c2, Quantidade_Pixels_Regiao_Interesse);
 	Ticks[2] = clock();
 	Tempo = (Ticks[2] - Ticks[1]) / CLOCKS_PER_SEC;
 	printf("\nTempo gasto na execucao do filtro: %gs.\n", Tempo);
 
 
-	V0 = (short int*)malloc(n * sizeof(short int));
+	vector <short int> V0(n);
 
 	rcm = 0;
-	//V0 = primeiro_bloco(poro, matriz, V, V0, a1, a2, b1, b2, c1, c2, rcm);
+	
 	V0 = identificacao_raio_critico(poro, matriz, V, V0, a1, a2, b1, b2, c1, c2, rcm, n);
 	Ticks[3] = clock();
 	Tempo = (Ticks[3] - Ticks[2]) / CLOCKS_PER_SEC;
 	printf("\nTempo gasto no bloco de Rc: %gs.\n", Tempo);
 	printf("\nO valor do raio critico e' de: %d \n", rcm - 1);
-	free(V);
+	V.clear();
 
 	//Segundo Bloco
-	V1 = (short int*)calloc(n, sizeof(short int));
-	//V1 = segundo_bloco(rcm, V0, V1, a1, a2, b1, b2, c1, c2);
+	vector <short int> V1(n);
 	V1 = associacao_pixels_aos_raios_criticos(rcm, V0, V1, a1, a2, b1, b2, c1, c2);
 
-	free(V0);
+	V0.clear();
 	Ticks[4] = clock();
 	Tempo = (Ticks[4] - Ticks[3]) / CLOCKS_PER_SEC;
 	printf("\nTempo gasto no segundo bloco: %gs.\n", Tempo);
 	double total_poros = 0;
-	long long int* Voxels_por_Raio;
-	Voxels_por_Raio = (long long int*)calloc(rcm, sizeof(long long int));
+
+	vector <long long int> Voxels_por_Raio(n);
 	Voxels_por_Raio = terceiro_bloco(rcm, V1, Voxels_por_Raio, total_poros, a1, a2, b1, b2, c1, c2);
 
-	free(V1);
+	V1.clear();
 	Ticks[5] = clock();
 	Tempo = (Ticks[5] - Ticks[4]) / CLOCKS_PER_SEC;
 	printf("\nTempo gasto no terceiro bloco: %gs.\n", Tempo);
@@ -124,7 +119,7 @@ int main(int argc, char** argv)
 	Tempo = (Ticks[6] - Ticks[0]) / CLOCKS_PER_SEC;
 	printf("\nTempo total de processamento: %gs.\n\n", Tempo);
 
-	free(Voxels_por_Raio);
+	Voxels_por_Raio.clear();
 	system("PAUSE");
 	return 0;
 }

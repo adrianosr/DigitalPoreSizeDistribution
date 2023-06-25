@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <vector>
 
 #include "LeituraConfiguracao.h"
 #include "LeituraArquivo.h"

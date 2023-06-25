@@ -1,31 +1,32 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #define CLOCKS_PER_SEC
 
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-using namespace std;
+#include "LeituraConfiguracao.h"
 
-void leitura_configuracao(int& a2, int& b2, int& c2, double& TP)
+vector<double> leitura_configuracao()
 {
 	FILE* arquivo;
 	int i, tamanho;
 	char Linha[150];
+	double a2, b2, c2, TP;
 
 	arquivo = fopen("Configuracao_do_Stack.txt", "rt");
+	if (arquivo == NULL)
+		printf("Erro na abertura do arquivo\n");
+
 
 	fgets(Linha, 150, arquivo);
 	fgets(Linha, 150, arquivo);
 	fgets(Linha, 150, arquivo);
-	fscanf(arquivo, "%d", &a2);
+	fscanf(arquivo, "%lf", &a2);
 	a2 = a2 - 1;
 	fgets(Linha, 150, arquivo);
 	fgets(Linha, 150, arquivo);
-	fscanf(arquivo, "%d", &b2);
+	fscanf(arquivo, "%lf", &b2);
 	b2 = b2 - 1;
 	fgets(Linha, 150, arquivo);
 	fgets(Linha, 150, arquivo);
-	fscanf(arquivo, "%d", &c2);
+	fscanf(arquivo, "%lf", &c2);
 	c2 = c2 - 1;
 	fgets(Linha, 150, arquivo);
 	fgets(Linha, 150, arquivo);
@@ -33,8 +34,12 @@ void leitura_configuracao(int& a2, int& b2, int& c2, double& TP)
 	fscanf(arquivo, "%lf", &TP);
 	//TP = TP - 1;
 
-	/*printf("Valor de a2: %d\n", a2);
-	printf("Valor de b2: %d\n", b2);
-	printf("Valor de c2: %d\n", c2);
+
+	vector <double> results{ a2, b2, c2, TP };
+	/*printf("Valor de a2: %lf\n", a2);
+	printf("Valor de b2: %lf\n", b2);
+	printf("Valor de c2: %lf\n", c2);
 	printf("Valor de TP: %2.0lf\n", TP);*/
+
+	return results;
 }

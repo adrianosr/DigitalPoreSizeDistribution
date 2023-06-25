@@ -6,6 +6,6 @@
 
 using namespace std;
 
-bool* leitura_arquivo(long long int& n, bool* V, string nome_arquivo);
+vector <bool> leitura_arquivo(string nome_arquivo);
 
 #endif // LEITURA_ARQUIVO_H_INCLUDED

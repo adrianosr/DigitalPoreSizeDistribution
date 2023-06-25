@@ -3,7 +3,7 @@
 #define ASSOCIACAOPIXELSRAIOSCRITICOS_H_INCLUDED
 #include <string>
 using namespace std;
-short int* associacao_pixels_aos_raios_criticos(short int rcm, short int* V0, short int* V1, int a1, int a2, int b1, int b2,
+vector <short int> associacao_pixels_aos_raios_criticos(short int rcm, vector <short int> V0, vector <short int> V1, int a1, int a2, int b1, int b2,
 	int c1, int c2);
 
 

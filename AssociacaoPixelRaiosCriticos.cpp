@@ -3,9 +3,10 @@
 //#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <vector>
 using namespace std;
 
-short int* associa_pixels_aos_raios_criticos(short int rcm, short int* V0, short int* V1, int a1, int a2, int b1, int b2, int c1, int c2)
+vector <short int> associacao_pixels_aos_raios_criticos(short int rcm, vector <short int> V0, vector <short int> V1, int a1, int a2, int b1, int b2, int c1, int c2)
 {
 	int i, j, k, r, dx, dy, dz;
 	long long int aux1, aux2, aux_calculo;

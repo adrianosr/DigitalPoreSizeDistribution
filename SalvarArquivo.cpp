@@ -6,10 +6,11 @@
 #include <stdlib.h>
 #include <fstream>
 #include <string>
+#include <vector>
 using namespace std;
 
 void salvar_arquivo_fprintf(double Volume_Amostra, double Porosidade1, double Porosidade2,
-    double* Diametros, long long int* Voxels_por_Raio, double* PSD, double* PSDE, short int rcm, double Tempo)
+    double* Diametros, vector <long long int> Voxels_por_Raio, double* PSD, double* PSDE, short int rcm, double Tempo)
 {
     printf("Volume da Amostra: %");
     printf("Volume Total da Amostra: %f\n", Volume_Amostra);
@@ -76,9 +77,9 @@ void salvar_arquivo_fprintf(double Volume_Amostra, double Porosidade1, double Po
 }
 
 void salvar_arquivo_cpp(double Volume_Amostra, double Porosidade1,
-    double* Diametros, long long int* Voxels_por_Raio, double* PSD, short int rcm, double Tempo)
+    double* Diametros, vector <long long int> Voxels_por_Raio, double* PSD, short int rcm, double Tempo)
 {
-    string arquivo_saida = "Resultados_Teste_42.txt";
+    string arquivo_saida = "Resultados_DPSD.txt";
     ofstream arquivo(arquivo_saida.c_str());
     if (arquivo.is_open())
     {
